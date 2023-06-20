@@ -1,0 +1,185 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+<title>LINDEN's Elite</title>
+{%endblock%}
+
+
+{%block content%} 
+<!DOCTYPE html>
+<html>
+<body>
+  <div class="teacher-card">
+    <div class="teacher-image">
+      <img src="{% static 'ELS/img/pavle.jpg' %}" alt="Pavle">
+    </div>
+    <div class="teacher-details">
+      <div class="teacher-name">Pavle Stojicevic</div>
+      <div class="teacher-specialties">Django, Python, HTML, CSS, JavaScript, database design, RESTful APIs,  problem-solving, algorithms, control structures, functions.</div>
+      <div class="teacher-experience">Pavle guides students through the entire development process, from designing the database structure to implementing front-end interfaces. His most successfull projects are: "Bookify": An online book marketplace developed using Django, where users can browse, search, and purchase books. The project incorporates features such as user authentication, database management, and a seamless shopping experience.
+
+        "DataVisPro": A data visualization platform created with Python's data science libraries, such as Matplotlib and Plotly. This project allows users to interactively explore and visualize complex datasets, enabling data-driven decision making and insights.
+        
+        "MLStockPredictor": A machine learning-based stock market predictor developed using Python. This project utilizes historical stock data and machine learning algorithms to forecast future stock prices, providing valuable insights for investment decisions.
+
+      </div>
+      <div class="teacher-description">
+        Pavle Stojicevic is a highly accomplished developer and instructor who brings a diverse range of skills and expertise to the classroom. With a deep passion for teaching, Pavle excels in guiding students through the intricacies of programming and data analysis. With a strong foundation in Python, Pavle's teaching extends across three distinct courses: Full-Stack Web Development with Django, Introduction to Python Programming, and Data Science with Python.
+        Throughout all three courses, Pavle's strong commitment to student success and his ability to simplify complex concepts make him an exceptional instructor. His extensive experience, combined with his passion for teaching, ensures that students gain practical skills and a deep understanding of the subject matter.
+      </div>
+      <br>
+      {% if user.is_authenticated %} 
+      <div class="teacher-contact">Contact: pavles2002@gmail.com</div>
+      {%endif%}
+    </div>
+  </div>
+  <div class="teacher-card">
+    <div class="teacher-image">
+      <img src="{% static 'ELS/img/bata.jpg' %}" alt="Bata">
+    </div>
+    <div class="teacher-details">
+      <div class="teacher-name">Nikola Stojicevic</div>
+      <div class="teacher-specialties">PHP, CSS, HTML, JavaScript, responsive web design, problem-solving, industry trends and best practices.</div>
+      <div class="teacher-experience">In terms of experience, Nikola has successfully completed several significant projects that highlight his proficiency and creativity. Some of his notable imaginary projects include:
+
+      "eCommercePro": An end-to-end e-commerce solution developed using PHP, CSS, HTML, and JavaScript. The project incorporates features like product management, user authentication, shopping cart functionality, and secure payment integration.
+      
+      "SocialConnect": A social networking platform built with PHP, CSS, HTML, and JavaScript. This project includes functionalities such as user profiles, friend connections, messaging, and post sharing.
+      
+      "Blogify": A dynamic blogging platform developed using PHP, CSS, HTML, and JavaScript. The project enables users to create and manage their blogs, publish articles, and interact with readers through comments and likes.</div>
+      <div class="teacher-description">
+        Nikola's teaching approach is focused on creating a supportive and engaging learning environment. He strives to simplify complex concepts, provide practical examples, and encourage hands-on coding exercises to reinforce learning. With his dedication and passion for teaching, Nikola goes the extra mile to ensure students grasp the fundamentals of PHP development effectively.
+      </div>
+      <br>
+      {% if user.is_authenticated %} 
+      <div class="teacher-contact">Contact: nikolas90@gmail.com</div>
+      {%endif%}
+    </div>
+  </div>
+    
+
+  <div class="teacher-card">
+    <div class="teacher-image">
+      <img src="{% static 'ELS/img/laske.jpg' %}" alt="Laske">
+    </div>
+    <div class="teacher-details">
+      <div class="teacher-name">David Obradovic</div>
+      <div class="teacher-specialties">React, HTML, CSS, JavaScript, front-end development tools and technologies, responsive web design, problem-solving, debugging, industry trends, and best practices.</div>
+      <div class="teacher-experience">David Obradovic is a highly experienced developer with a passion for teaching Front-End Web Development with React. With over 8 years of coding experience, David brings a wealth of knowledge to the classroom. He has worked on various projects throughout his career, including a notable achievement of developing a responsive e-learning platform called "ReactLearn." This platform offers an immersive and engaging learning experience for students, leveraging the power of React components and modern web technologies.</div>
+      <div class="teacher-description">
+        With his extensive coding experience, David possesses a deep understanding of web development principles and best practices. His teaching approach focuses on empowering students to build interactive user interfaces and dynamic web applications using React. David's expertise in Front-End Web Development with React, combined with his ability to explain complex concepts in a clear and concise manner, make him an exceptional instructor.
+      </div>
+      <br>
+      {% if user.is_authenticated %} 
+      <div class="teacher-contact">Contact: davidlaske@gmail.com</div>
+      {%endif%}
+    </div>
+    
+  </div>
+  <div class="teacher-card">
+    <div class="teacher-image">
+      <img src="{% static 'ELS/img/nasta.jpg' %}" alt="Nasta">
+    </div>
+    <div class="teacher-details">
+      <div class="teacher-name">Nikola Nastasijevic</div>
+      <div class="teacher-specialties">HTML, CSS, responsive web design, cross-browser compatibility, web accessibility, UI/UX design principles, version control (Git), problem-solving.</div>
+      <div class="teacher-experience">With over 6 years of coding experience, Nikola Nastasijevic is a highly skilled developer specializing in HTML and CSS. He has worked with reputable web development agencies, gaining valuable expertise in creating visually appealing and user-friendly web pages. Nikola has successfully completed several noteworthy projects, including "ResponsiveNews," a responsive news website that seamlessly adapts to different screen sizes, and "CSSGallery," an online showcase of stunning CSS artwork from talented designers worldwide.</div>
+      <div class="teacher-description">
+        Nikola's wealth of experience, attention to detail, and ability to combine clean code with modern design principles make him an exceptional choice as your instructor for the course "HTML and CSS."
+      </div>
+      <br>
+      {% if user.is_authenticated %} 
+      <div class="teacher-contact">Contact: nikolanas@gmail.com</div>
+      {%endif%}
+    </div>
+  </div>
+  <div class="teacher-card">
+    <div class="teacher-image">
+      <img src="{% static 'ELS/img/sale.jpg' %}" alt="Kuce">
+    </div>
+    <div class="teacher-details">
+      <div class="teacher-name">Sasa Vuckovic</div>
+      <div class="teacher-specialties">Data analysis, statistical analysis, data visualization, Python, SQL, Excel, problem-solving.</div>
+      <div class="teacher-experience">With a solid background in data analytics, Sasa Vuckovic brings a wealth of knowledge and expertise to the field. With several years of experience in the industry, Sasa has worked in various roles, including data analyst at a leading technology company and consultant for data-driven decision-making strategies. Sasa has successfully completed significant projects, such as "DataSense," an innovative data analytics platform that provides actionable insights for businesses to optimize their operations and make informed decisions.</div>
+      <div class="teacher-description">
+        Sasa Vuckovic is a highly knowledgeable and experienced data analyst, making him an excellent choice to teach the course "Data Analytics Introduction." With a passion for data-driven insights, Sasa excels at simplifying complex concepts and presenting them in an accessible manner. Students will benefit from Sasa's ability to explain fundamental data analytics techniques, statistical analysis, and data visualization. By the end of the course, students will have a solid foundation in data analytics and be equipped to apply these skills to real-world scenarios.
+      </div>
+      <br>
+      {% if user.is_authenticated %} 
+      <div class="teacher-contact">Contact: salekuce223@gmail.com</div>
+      {%endif%}
+    </div>
+  </div>
+  <div class="teacher-card">
+    <div class="teacher-image">
+      <img src="{% static 'ELS/img/dare.jpg' %}" alt="Rade">
+    </div>
+    <div class="teacher-details">
+      <div class="teacher-name">Darko Pantelic</div>
+      <div class="teacher-specialties">Machine learning algorithms, Python, data preprocessing, model selection, evaluation techniques, deep learning, natural language processing, problem-solving.</div>
+      <div class="teacher-experience">With a deep passion for machine learning, Darko Pantelic is a highly skilled practitioner in the field. With several years of experience, Darko has worked on a variety of machine learning projects, including developing a cutting-edge recommendation system for a leading e-commerce platform called "SmartRecs." This system utilizes advanced machine learning algorithms to provide personalized recommendations to users, enhancing their shopping experience and boosting sales.</div>
+      <div class="teacher-description">
+        With a deep passion for machine learning, Darko Pantelic is a highly skilled practitioner in the field. With several years of experience, Darko has worked on a variety of machine learning projects, including developing a cutting-edge recommendation system for a leading e-commerce platform called "SmartRecs." This system utilizes advanced machine learning algorithms to provide personalized recommendations to users, enhancing their shopping experience and boosting sales.
+      </div>
+      <br>
+      {% if user.is_authenticated %} 
+      <div class="teacher-contact">Contact: darejurga23@gmail.com</div>
+      {%endif%}
+    </div>
+  </div>
+  <div class="teacher-card">
+    <div class="teacher-image">
+      <img src="{% static 'ELS/img/pele.jpg' %}" alt="Pele">
+    </div>
+    <div class="teacher-details">
+      <div class="teacher-name">Petar Nikodijevic</div>
+      <div class="teacher-specialties">JavaScript, advanced JavaScript concepts, closures, prototypes, async/await, functional programming, problem-solving.</div>
+      <div class="teacher-experience">With a strong focus on JavaScript, Petar Nikodijevic is a highly skilled developer with extensive experience in advanced JavaScript concepts and techniques. With several years of coding experience, Petar has worked on numerous projects that push the boundaries of what can be achieved with JavaScript. One notable project is "JSMastery," a comprehensive online learning platform that offers advanced JavaScript tutorials and exercises to help developers master the intricacies of the language.</div>
+      <div class="teacher-description">
+        Petar's expertise in JavaScript makes him an ideal choice as your instructor for the JavaScript Advanced Course. Petar's teaching approach focuses on diving deeper into the language, exploring advanced topics such as closures, prototypes, async/await, and functional programming. Through hands-on coding exercises and real-world examples, Petar equips students with the skills to build sophisticated and efficient JavaScript applications.
+      </div>
+      <br>
+      {% if user.is_authenticated %} 
+      <div class="teacher-contact">Contact: pelepetar@gmail.com</div>
+      {%endif%}
+    </div>
+  </div>
+  <div class="teacher-card">
+    <div class="teacher-image">
+      <img src="{% static 'ELS/img/meda.jpg' %}" alt="Meda">
+    </div>
+    <div class="teacher-details">
+      <div class="teacher-name">Veljko Jakovljevic</div>
+      <div class="teacher-specialties">Java programming, object-oriented programming, variables, data types, control structures, problem-solving.</div>
+      <div class="teacher-experience"> Veljko has worked on various Java projects, including the development of a robust inventory management system for a major retail company called "JavaMart." This system efficiently handles inventory tracking, order processing, and sales analytics, contributing to improved operational efficiency and customer satisfaction.</div>
+      <div class="teacher-description">
+        Veljko's passion for teaching shines through in his approach to the Java Programming Course. With his extensive knowledge of Java programming principles and best practices, he is dedicated to guiding students through the foundations of the language. Veljko's teaching style is engaging and interactive, ensuring that students not only understand the concepts but also develop the practical skills required to build Java applications. His enthusiasm and commitment to student success make him an exceptional instructor.
+      </div>
+      <br>
+      {% if user.is_authenticated %} 
+      <div class="teacher-contact">Contact: veljko123@gmail.com</div>
+      {%endif%}
+    </div>
+  </div>
+  <div class="teacher-card">
+    <div class="teacher-image">
+      <img src="{% static 'ELS/img/luis.jpg' %}" alt="Luis">
+    </div>
+    <div class="teacher-details">
+      <div class="teacher-name">Mihajlo Zivkovic</div>
+      <div class="teacher-specialties">React Native, JavaScript, UI/UX design, API integration, mobile app development, debugging and testing.</div>
+      <div class="teacher-experience">Mihajlo is an experienced developer specializing in Mobile App Development with React Native. With several years of coding experience, he has worked on various mobile app projects, showcasing his expertise in React Native. One notable project is "Eventify," a social event management app that enables users to discover, create, and join events in their area. Mihajlo's deep understanding of React Native's components, navigation, and APIs allows him to guide students in building robust and user-friendly mobile applications.</div>
+      <div class="teacher-description">
+        Mihajlo's extensive experience and proficiency in React Native make him an excellent choice for the Mobile App Development with React Native course. Whether you're a beginner or have some prior programming knowledge, Mihajlo will help you master the skills required to create powerful and engaging mobile applications.
+      </div>
+      <br>
+      {% if user.is_learner %} 
+      <div class="teacher-contact">Contact: mihajloz93@gmail.com</div>
+      {%endif%}
+
+
+</body>
+</html>
+
+{%endblock%}

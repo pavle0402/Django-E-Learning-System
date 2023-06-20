@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{%block title%} 
+<head>
+<title>{{course.id}} - {{course.name}}</title>
+</head>
+{% endblock %}
+
+
+{% block content %}
+<!DOCTYPE html>
+<html>
+<body>
+  <div class="course-details">
+    <div class="course-info">
+      <h2 class="course-title"> {{course.get_html_badge}}</h2>
+      <div class="course-badge">
+      <img src="{{ course.badge.url }}" alt="badge">
+    </div>
+      <p class="course-description">{{course.description|linebreaksbr }}</p>
+      <p class="course-meta"><span>Instructor:</span>{{course.instructor}} <a href="{% url 'instructors' %}">view more</a> </p>
+      <!-- create duration field for course model -->
+      <p class="course-meta"><span>Duration:</span>30 hours</p>
+      <div class="course-rating">
+        <span class="rating-stars">⭐️⭐️⭐️⭐️⭐️</span>
+        <span class="rating-value">4.9</span>
+      </div>
+      <a class="enroll-button" href="#">Enroll Now</a>
+      <hr>
+      <br><br><br>
+
+      <div class="comments-container">
+        <h2>Feedbacks</h2>
+        {% for comment in course.comments.all %}
+            <div class="comment">
+                <div class="author">{{ comment.name }}</div>
+                <div class="timestamp">{{ comment.date_posted }}</div>
+                <div class="content">{{ comment.comment }}</div>
+            </div>
+        {% empty %}
+            <p>No feedbacks yet.</p>
+        {% endfor %}
+    </div>
+
+      {% if user.is_authenticated %}
+        {% if user.is_learner %}
+          <form method="POST">
+            {% csrf_token %}
+            {{form.as_p}} 
+          </form>
+        {%endif%}
+      {%endif%}
+    </div>
+  </div>
+</body>
+</html>
+
+
+
+{%endblock%}

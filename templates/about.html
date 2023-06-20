@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{%block title %} 
+<title>About Linden</title>
+{%endblock%} 
+
+{%block content%}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>About Us - Linden E-Learning System</title>
+  <style>
+
+    #bg {
+      background-repeat: no-repeat;
+      background-size: 100%;
+    }
+    h1 {
+      font-size: 36px;
+      color: #555;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      font-size: 30px;
+      color: #555;
+      margin-bottom: 15px;
+    }
+
+    p {
+      font-size: 24px;
+      line-height: 1.5;
+      margin-bottom: 15px;
+    }
+
+    ul {
+      list-style-type: disc;
+      margin-left: 25px;
+    }
+
+    li {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body id="bg" style="background-image: url('{% static "ELS/img/white 1.jpg"%}');">
+  <h1>About Us</h1>
+  <p>Welcome to Linden E-Learning System, the premier platform for IT education and training. We are dedicated to providing high-quality online courses that empower learners to succeed in the ever-evolving field of information technology.</p>
+
+  <h2>Our Mission</h2>
+  <p>Our mission is to make quality IT education accessible to learners worldwide. We strive to bridge the skills gap by offering comprehensive courses that equip individuals with the knowledge and practical skills needed to thrive in the IT industry.</p>
+
+  <h2>Why Choose Linden E-Learning System?</h2>
+  <ul>
+    <li>
+      <strong>Industry-Relevant Content:</strong> Our courses are designed by industry experts and updated regularly to ensure they align with the latest industry trends and technologies. We focus on providing practical knowledge and real-world examples that are directly applicable to the IT workplace.
+    </li>
+    <li>
+      <strong>Experienced Instructors:</strong> Our instructors are seasoned professionals with extensive experience in the IT industry. They are passionate about sharing their expertise and guiding learners towards success. You'll benefit from their practical insights, industry best practices, and personalized support.
+    </li>
+    <li>
+      <strong>Comprehensive Course Catalog:</strong> We offer a wide range of IT courses that cover various domains and technologies. Whether you're interested in web development, data science, cybersecurity, cloud computing, or any other IT field, we have the right course to suit your learning goals and aspirations.
+    </li>
+    <li>
+      <strong>Hands-On Learning:</strong> We believe in learning by doing. Our courses emphasize hands-on projects, coding exercises, and practical assignments that allow you to apply your knowledge and gain valuable experience. You'll build a portfolio of projects that demonstrate your skills to potential employers.
+    </li>
+    <li>
+      <strong>Flexible Learning Options:</strong> We understand that everyone has different schedules and learning preferences. That's why we offer flexible learning options, including self-paced courses, live webinars, and on-demand video lectures. You can learn at your own pace and access the content from anywhere, at any time.
+    </li>
+    <li>
+      <strong>Community and Support:</strong> Join a vibrant community of learners, where you can interact, collaborate, and learn from fellow students. Our platform provides discussion forums, community groups, and networking opportunities to enhance your learning experience. Our support team is also available to assist you throughout your learning journey.
+    </li>
+  </ul>
+
+  <h2>Start Your IT Journey Today</h2>
+  <p>Take the first step towards advancing your IT career or acquiring new skills by enrolling in one of our courses. Join [Your E-Learning System Name] and unlock your potential in the exciting world of technology.</p>
+</body>
+</html>
+
+{%endblock%}

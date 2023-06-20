@@ -1,0 +1,23 @@
+{%  extends 'base.html' %}
+{%load static%}
+
+
+{%block content%} 
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="{% static 'ELS/css/announcements/edit_announcement.css' %}">
+</head>
+<body1>
+  <div class="container">
+    <h2>Edit Announcement</h2>
+    <form method="POST" action="{% url 'update_announcement' announcement.pk %}" enctype="multipart/form-data">
+      {% csrf_token %}
+        {{form.as_p|safe}}
+      <input class="btn btn-primary" type="submit">
+    </form>
+  </div>
+</body1>
+</html>
+
+{%endblock%}

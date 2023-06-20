@@ -1,0 +1,60 @@
+/* Navbar styles */
+.navbar-wrapper {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  
+  .navbar {
+    background-color: #1e1e1e;
+    padding: 10px;
+  }
+  
+  .navbar-brand {
+    display: flex;
+    align-items: center;
+    color: #fff;
+    font-weight: bold;
+    text-decoration: none;
+  }
+  
+  .navbar-logo {
+    width: 40px;
+    height: 40px;
+    margin-right: 5px;
+  }
+  
+  .navbar-toggler {
+    color: #fff;
+    border: none;
+  }
+  
+  .nav-link {
+    color: #fff;
+    margin-right: 15px;
+  }
+ .account-dropdown {
+  margin-right: 20px;
+ }
+  
+  /* Sidebar toggler styles */
+  .sidebar-toggler {
+    color: #fff;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 5px;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .sidebar-toggler span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background-color: #fff;
+    margin-bottom: 4px;
+  }
+  

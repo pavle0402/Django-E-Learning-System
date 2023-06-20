@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{%block title%} 
+<title>{{userprofile.user.first_name}}'s profile page</title>
+{%endblock%} 
+
+
+{%block content%} 
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Profile</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'ELS/css/profile.css' %}">
+</head>
+<body>
+    <div class="card">
+        <div class="profile-container">
+            <img src="{{userprofile.profile_pic.url}}" alt="Profile Picture" class="profile-picture">
+            <div class="profile-details">
+                <div class="name">{{userprofile.user.first_name}} {{userprofile.user.last_name}}</div>
+                <div class="bio">{{userprofile.bio}}</div>
+                <div class="courses">
+                    <ul>
+                        {% if userprofile.courses %}
+                            {% for course in courses%} 
+                                <li>{{userprofile.courses}}</li>
+                            {%endfor%} 
+                        {%endif%} 
+                    </ul>
+                </div>
+                <div class="birthdate">{{userprofile.birth_date}}</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+{% endblock %}

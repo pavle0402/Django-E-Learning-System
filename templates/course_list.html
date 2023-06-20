@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{%block title%}
+<title>List of our courses</title>
+{%endblock%}
+
+{%block content%}
+<!DOCTYPE html>
+<html>
+<body2>
+    <div class="container2">
+    <h1 class="x">LIST OF OUR BEST COURSES!</h1>
+    <hr><br><br>
+    
+        <ul class="c1class">
+            {% for object in object_list %}
+                <a href="{% url 'course_detail' object.pk %}"><li class="c2class">{{ object.name }} - {{object.price}}</li></a>            {% endfor %}
+        </ul>
+
+    </div>
+
+</body2>
+</html>
+{%endblock%}

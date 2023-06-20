@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{%load static%}
+
+{%block title%} 
+<title>New announcement</title>
+{%endblock%} 
+
+{% block content %}
+<head>
+<link rel="stylesheet" href="{% static 'ELS/css/announcements/create_announcement.css' %}">
+</head>
+{% if user.is_authenticated %}
+    {% if user.is_staff %}
+        <div class="form-container">
+            <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" id="title" name="title" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="text">Text</label>
+                <textarea id="text" name="text" class="form-control form-control-textarea" required></textarea>
+              </div>
+              <div class="form-group">
+                <label for="file">File</label>
+                <input type="file"  name="file" class="form-control-file">
+              </div>
+              <div class="form-group">
+                <label for="expiry_date">Expiry Date</label>
+                <input  id="expiry_date" name="expiry_date" class="form-control" required>
+              </div>
+              <button type="submit" class="btn-primary">Publish</button>
+            </form>
+
+      </div>
+    {% endif %}
+{% endif %}
+
+{%endblock%}

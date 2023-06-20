@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+
+
+{% load static %}
+{%block content%}
+
+
+<link rel="stylesheet" type="text/css" href="{% static 'ELS/css/style.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'ELS/css/home.css' %}">
+
+
+
+<div class="col-sm-12" style="padding-top: 60px">
+<div id="content">
+    <div class="col-sm-12">
+
+<h1 class="header">Welcome to LINDEN ELS</h1>
+
+    </div>
+<center><img src="{% static "ELS/img/background.jpg" %}"  width="1200" height="600"></center>
+<br>
+<hr>
+<div class="card1">
+  <div class="content">
+    <h2>Welcome to our LINDEN E-Learning System for coding!</h2>
+    <p>Unlock the power of programming with our comprehensive courses and interactive tutorials.</p>
+    <p>Learn to code at your own pace, from beginner to advanced levels.</p>
+    <p>Explore a wide range of programming languages, frameworks, and tools.</p>
+    <p>Gain practical coding skills through hands-on exercises and real-world projects.</p>
+    <p>Our experienced instructors and supportive community are here to guide you on your coding journey.</p>
+    <p>Start today and embark on an exciting path towards mastering the art of coding!</p>
+  </div>
+  <img class="x" src="{% static 'ELS/img/man.jpg' %}" alt="Coding Image">
+</div>
+
+<hr>
+
+
+<div class="card">
+  <h3>Ready to Unlock Your Potential?</h3>
+  <p1>Discover a world of knowledge and growth with our exceptional courses and renowned instructors. Step into a realm where boundaries are shattered, and possibilities become limitless.</p1>
+  <p1>Our carefully curated courses are designed to ignite your passion, expand your horizons, and equip you with the skills and expertise you need to thrive in today's fast-paced world.</p1>
+  <p1>Join our community of ambitious learners and embark on a transformative journey. Unleash your true potential and embrace the future that awaits. Are you ready to take the leap?</p1>
+  <a href="{% url 'services' %}" target="_blank" class="btn">Our services</a>
+</div>
+
+
+
+<hr>
+<br>
+
+<br>
+
+                </div>
+
+<div class="faq-card">
+  <h3>Frequently Asked Questions</h3>
+  <br>
+  <ul>
+    <li>
+      <h4>How long will I have access to the course?</h4>
+      <p>You will have access to the course for 1 year from the date of enrollment. During this period, you can learn at your own pace.</p>
+    </li>
+    <li>
+      <h4>Can I contact the instructor for assistance?</h4>
+      <p>Yes, you can be in touch with the instructor at any moment. We provide various channels for communication, such as discussion forums, email, or live chat.</p>
+    </li>
+    <li>
+      <h4>What payment methods do you accept?</h4>
+      <p>We accept payments through major credit cards (Visa, Mastercard, American Express) and online payment platforms such as PayPal. Secure payment options ensure your transaction details are protected.</p>
+    </li>
+    <li>
+    <h4>Are the courses self-paced?</h4>
+    <p>Yes, our courses are designed to be self-paced, allowing you to learn at your own convenience and progress through the materials at a speed that suits you.</p>
+    </li>
+    <li>
+    <h4>How can I access the course materials?</h4>
+    <p>Upon enrollment, you will gain access to the course materials through our online learning platform. You can log in to the platform using your credentials and access the materials from any device with an internet connection.</p>
+    </li>
+    <li>
+    <h4>What happens if I face technical issues during the course?</h4>
+    <p>If you encounter any technical issues while accessing the course, our support team is here to help. You can reach out to our technical support staff via email or our dedicated support channels, and they will assist you in resolving the problem.</p>
+    </li>
+    <li>
+    <h4>Is there any assessment or certification upon course completion?</h4>
+    <p>Yes, most of our courses include assessments or quizzes to evaluate your understanding of the content. Upon successful completion of the course requirements, you will receive a certificate of completion, which can be a valuable addition to your professional profile.</p>
+    </li>
+    <li>
+    <h4>Can I enroll in multiple courses simultaneously?</h4>
+    <p>Absolutely! You can enroll in multiple courses simultaneously and manage your learning journey across different subjects or topics. Our learning platform allows you to access all the courses you are enrolled in from a single account.</p>
+    </li>
+  </ul>
+</div>
+
+<br><hr>
+
+<main>
+  <section class="course-list">
+    <h2>Most Popular Courses at Linden</h2>
+    <div class="course-card">
+      <img src="{{course1.badge.url}}" alt="Course">
+      <h3>{{course1.name}}</h3>
+      <p>Take your JavaScript skills to the next level with our advanced course. Dive into advanced concepts, frameworks, and techniques to build robust web applications.</p>
+      <a href="#" class="btn">View Course</a>
+    </div>
+    <div class="course-card">
+      <img src="{{course2.badge.url}}" alt="Course 2">
+      <h3>{{course2.name}}</h3>
+      <p>Embark on a coding journey with our Python Introduction course. Gain a solid foundation in Python programming as you explore its versatility and apply it to real-world projects.</p>
+      <a href="#" class="btn">View Course</a>
+    </div>
+    <div class="course-card">
+      <img src="{{course3.badge.url}}" alt="Course 3">
+      <h3>{{course3.name}}</h3>
+      <p>Embark on a coding journey with our Python Introduction course. Gain a solid foundation in Python programming as you explore its versatility and apply it to real-world projects</p>
+      <a href="#" class="btn">View Course</a>
+    </div>
+    <a href="{% url 'course_list' %}" class="show-all-btn">Show All Courses</a>
+  </section>
+</main>
+
+
+   
+    <script type="text/javascript" src="{% static 'ELS/js/jquery-2.1.3.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'ELS/js/bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'ELS/js/jquery.dataTables.js' %}"></script>
+    <script type="text/javascript" src="{% static 'ELS/js/main.js' %}"></script>
+</body>
+
+<footer class="footer">
+  <p>&copy; 2023 Linden ELS. All rights reserved.</p>
+</footer>
+</html>
+
+
+
+</body>
+</html>
+
+{%endblock%}
+

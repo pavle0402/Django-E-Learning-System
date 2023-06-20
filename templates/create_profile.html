@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{%load static%}
+
+{%block title%}
+<title>Profile creation</title>
+{%endblock%} 
+
+
+
+{%block content%} 
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="{% static 'ELS/css/profile_creation.css' %}">
+</head>
+<body>
+  {% if not user.user_profile %} 
+  <div class="profile-container">
+    <h1>Create Your Profile</h1>
+    <form action="{% url 'create_profile' %}" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+        {{form.as_p}}
+        <button type="submit" class="btn btn-primary">Create Profile</button>
+</body>
+</html>
+  {%else%}
+  <h2>You already have profile. What are you doing here?</h2>
+{%endblock%}

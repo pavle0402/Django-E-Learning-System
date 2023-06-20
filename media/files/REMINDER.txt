@@ -1,0 +1,107 @@
+CRM app finished. Add some nice details(to look more advanced and nicer) and continue with next project. Got some suggestions opened on edge, search for some more.
+
+
+
+
+progress: made create profile page. Changes in plan. I will create profile page with just picture and the courses user enrolls to will be available for him to see at some separate page. Profile page with jsut picture and name and maybe something else will be displayed on the home page in form of: WELCOME! and beneath that goes profile pic and name and smth else i need to figure out what. Also profile pic and name will be displayed on the right corner of the navbar and that will also be dropdown menu with edit profile option and logout option. Also for profile page i will put interests which will be displayed for teachers and staff only on page called students, there will be ListView for each profile page that exists on the app and there will be delete and edit option FOR STAFF ONLY. I think this is the best.
+
+15.6.: changes to the course model, displaying it on homepage, and fixing home page a little bit. For courses left - ratings(only students can rate), and enroll button(figure out what will that do), and feedbacks(classic comment section, for students only, should not be hard to make).
+
+
+
+NOTE: POST ANNOUNCEMENT NOT WORKING, FKED UP SOMETHING WITH CSS AT EDIT CREATE AND DELETE ANNOUNCEMENT. FIGURE IT OUT. GO THROUGH EACH CSS FILE AND CHECK TO SEE WHAT IS BUGGING IT.
+
+
+
+E-LEARNING SYSTEM:
+
+-Make feedback form for students and make sumarized rating(avg rating) and display that instead of 4.9 rating which is on every course. Decorate list of courses also.
+
+ expiry_date not done unfortunately, scroll to the bottom of this reminder. - createview done, make delete view for announcements for staff.)
+
+-Create profile page for each user. Basic stuff, picture, name, hobbies, and what are their interests on this site, what are they studying. Workplace also, profile pic ofc and that's it. Make it visible for only logged in users.But make this for admins only, like in e-indeks(on my university) you are granted profile picture taht you deliver to them, you get id(I0224-21), figure out how to automatically give users some specific id but not with numbers only, some information about users on their profile, like preferences, birthdate and smth like that. DO IT TMRW
+
+
+
+
+
+
+
+
+Nice idea:
+On home page just provide people with like 4 instructors and describe them in a few sentences(2-3). Then put link below for customers to see all of the instructors and their specialties. For that create separate page just for that and there add like 12 people with nice cards, pictures and everything.
+
+
+Do user thing on ur own. I know you can do it. Find a way for displaying and creating users that are teachers and users that are students(admin is made in powershell). First idea is to make is_learner be True by default. And the only way that can be changed is from admin page. That would be the only logical way. So later in project there would be some if statements that would allow something to teachers only and not to students and so on... DONE
+
+
+Current step is making courses for ELS, my idea is a little bit different from the motech's. I will make courses page with list of courses and really briefly describe the course, but i will also provide hyperlink where the course can be seen fully, there i can do whatever id like, for example to do some marketing like to tell what they will gain and to provide them with some nice feedbacks from previous users. For that feedback i can put picture of some random guy and on the side his story on how he became great programmer because of that course. Also i can put recommendation for example when someone clicks on django course i will immediately underneath the name of the course i will type something like: This is more advanced python course, would you like to start with basics? href='basic python'
+
+
+
+
+FOR EXPIRATION DATE: ASK AI ABOUT DJANGO CELERY BEAT AND FIGURE IT OUT!
+
+To use Django Celery Beat to automatically delete objects on their expiration date, follow these steps:
+
+Install the necessary packages:
+
+Copy code
+pip install celery django-celery-beat
+Configure Celery in your Django project:
+In your Django project's settings file (settings.py), add the following configurations for Celery and Django Celery Beat:
+
+python
+Copy code
+# settings.py
+
+# Celery configuration
+CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+CELERY_TIMEZONE = 'UTC'
+
+# Django Celery Beat configuration
+INSTALLED_APPS += ['django_celery_beat']
+Adjust the CELERY_BROKER_URL and CELERY_RESULT_BACKEND values to match your Redis configuration.
+
+Define a Celery task to delete expired objects:
+In a file such as tasks.py, define a Celery task that deletes expired objects based on their expiration_date field:
+
+python
+Copy code
+# tasks.py
+from celery import shared_task
+from django.utils import timezone
+from .models import YourModel
+
+@shared_task
+def delete_expired_objects():
+    current_time = timezone.now()
+    YourModel.objects.filter(expiration_date__lte=current_time).delete()
+Replace 'YourModel' with the actual model you want to work with, and adjust the expiration_date field accordingly.
+
+Configure the periodic task in Django Celery Beat:
+In the Django admin or using a Django shell, create a periodic task that triggers the delete_expired_objects task at the desired interval. For example, to run the task once per day, you can create a daily task that triggers at midnight:
+
+python
+Copy code
+from django_celery_beat.models import PeriodicTask, IntervalSchedule
+
+schedule, _ = IntervalSchedule.objects.get_or_create(every=1, period=IntervalSchedule.DAYS)
+task = PeriodicTask.objects.create(interval=schedule, name='Delete Expired Objects', task='yourapp.tasks.delete_expired_objects')
+Replace 'yourapp.tasks.delete_expired_objects' with the actual path to the delete_expired_objects task.
+
+Start Celery worker and beat scheduler:
+Open a terminal or command prompt and run the following commands:
+
+css
+Copy code
+celery -A yourproject worker --loglevel=info
+celery -A yourproject beat --loglevel=info
+Replace 'yourproject' with the name of your Django project.
+
+By following these steps, Celery will schedule the delete_expired_objects task to run at the specified interval using Celery Beat. When the task is triggered, it will check the expiration_date field of the objects and delete the ones that have expired.
+
+Ensure that your Celery and Redis configurations are properly set up, and customize the model name (YourModel) and the expiration_date field to match your specific implementation.
+
+This approach enables automatic deletion of objects based on their expiration date, without requiring continuous monitoring or manual intervention.

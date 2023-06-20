@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{%block title%} 
+<title>Announcements</title>
+{% endblock %}
+
+{%block content%} 
+
+<div class="announcement-container">
+    <h1 style="text-align: center;">Announcements</h1>
+    <div class="announcement-list">
+      {% for announcement in announcements %}
+      <div class="announcement-card">
+        <h2>{{ announcement.title }} </h2>     
+
+        <p class="announcement-date">{{ announcement.added_on|date:"F j, Y" }}</p>
+        <p class="announcement-content">{{ announcement.text|safe|linebreaksbr }}</p>
+        <a href="{{ announcement.file }}" target="_blank">{{announcement.file}}</a>
+        <!-- <p class="announcement-expiry {% if announcement.is_expired %}expired{% endif %}"> -->
+          <!-- {% if announcement.is_expired %} -->
+            <!-- Expired -->
+          <!-- {% else %} -->
+            <!-- Expires on {{ announcement.expiry_date|date:"F j, Y" }} -->
+          <!-- {% endif %} -->
+        </p>
+      </div>
+        {% if user.is_staff or user.is_admin%} 
+          <a class="btn btn-primary btn-sm" href="{% url 'update_announcement' announcement.pk %}">Edit</a> <a class="btn btn-primary btn-sm" href="{% url 'delete_announcement' announcement.pk %}">Delete</a> 
+        {%endif%}
+      {% endfor %}
+    </div>
+  </div>
+{%endblock%}  
