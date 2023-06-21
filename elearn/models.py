@@ -38,9 +38,31 @@ class Announcement(models.Model):
     file = models.FileField(upload_to="files", blank=True)
 
 
+    def __str__(self):
+        return f"{self.title} - {self.added_on}"
+
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
+    enrolled_courses = models.ManyToManyField(Course, null=True)
     profile_pic = models.ImageField(upload_to="images")
     bio = models.TextField()
+    instagram = models.URLField(blank=True, null=True)
+    facebook = models.URLField(blank=True, null=True)
+    twitter = models.URLField(blank=True, null=True)
+    linkedin = models.URLField(blank=True, null=True)
     birth_date = models.CharField(max_length=11)
+
+
+    def __str__(self):
+        return f"{str(self.user)}"
+
+class Feedback(models.Model):
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True, related_name='comment')
+    author = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    content = models.TextField()
+    posted_on = models.DateTimeField(auto_now_add=True)
+
+
+    def __str__(self):
+        return f"{self.author} - {self.course}"

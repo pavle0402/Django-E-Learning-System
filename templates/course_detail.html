@@ -17,6 +17,7 @@
       <div class="course-badge">
       <img src="{{ course.badge.url }}" alt="badge">
     </div>
+      <strong style="font-size: 30px;">{{course.price}}</strong><br>
       <p class="course-description">{{course.description|linebreaksbr }}</p>
       <p class="course-meta"><span>Instructor:</span>{{course.instructor}} <a href="{% url 'instructors' %}">view more</a> </p>
       <!-- create duration field for course model -->
@@ -25,36 +26,30 @@
         <span class="rating-stars">⭐️⭐️⭐️⭐️⭐️</span>
         <span class="rating-value">4.9</span>
       </div>
-      <a class="enroll-button" href="#">Enroll Now</a>
+      <form method="post" action="{% url 'enroll' course.pk %}">
+        {% csrf_token %}
+        <button class="enroll-button">Enroll Now</button>
+      </form>
       <hr>
       <br><br><br>
 
       <div class="comments-container">
         <h2>Feedbacks</h2>
-        {% for comment in course.comments.all %}
+        {% for feedback in feedbacks %}
             <div class="comment">
-                <div class="author">{{ comment.name }}</div>
-                <div class="timestamp">{{ comment.date_posted }}</div>
-                <div class="content">{{ comment.comment }}</div>
+                <div class="author">{{ feedback.author }}</div>
+                <div class="timestamp">{{ feedback.posted_on }}</div>
+                <div class="content">{{ feedback.content }}</div>
             </div>
         {% empty %}
             <p>No feedbacks yet.</p>
+            <a href="{% url 'feedback' course.pk %}">Break the ice...</a>
         {% endfor %}
-    </div>
 
-      {% if user.is_authenticated %}
-        {% if user.is_learner %}
-          <form method="POST">
-            {% csrf_token %}
-            {{form.as_p}} 
-          </form>
-        {%endif%}
-      {%endif%}
+          {%if user.is_authenticated %}
+              <a href="{% url 'feedback' course.pk %}">Add feedback...</a>
+          {% endif %}
     </div>
   </div>
 </body>
-</html>
-
-
-
 {%endblock%}

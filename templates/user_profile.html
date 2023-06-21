@@ -22,11 +22,7 @@
                 <div class="bio">{{userprofile.bio}}</div>
                 <div class="courses">
                     <ul>
-                        {% if userprofile.courses %}
-                            {% for course in courses%} 
-                                <li>{{userprofile.courses}}</li>
-                            {%endfor%} 
-                        {%endif%} 
+                        <l1>{{userprofile.enrolled_courses}}</l1>
                     </ul>
                 </div>
                 <div class="birthdate">{{userprofile.birth_date}}</div>

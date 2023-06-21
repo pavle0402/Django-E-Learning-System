@@ -22,7 +22,13 @@
         {{form.as_p}}
         <button type="submit" class="btn btn-primary">Create Profile</button>
 </body>
+<script>
+  var name = "{{ user.pk }}" 
+  document.getElementById("owner").value 
+  = name 
+</script>
 </html>
   {%else%}
   <h2>You already have profile. What are you doing here?</h2>
+  {%endif%}
 {%endblock%}

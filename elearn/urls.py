@@ -19,7 +19,7 @@ urlpatterns = [
     path('<int:pk>/delete', views.DeleteAnnouncementView.as_view(), name='delete_announcement'),
     path('create_profile/', views.ProfileCreateView.as_view(), name='create_profile'),
     path('profile/<int:pk>/', views.ProfileDetailView.as_view(), name='profile_page'),
-    path('enroll/<int:course_id>/', views.EnrollCourse.as_view(), name='enroll'),
-    # path("course_detail/<int:pk>/comment", views.CreateFeedbackView.as_view(), name='feedback'),
+    path('course_detail/<int:course_id>/enroll/', views.EnrollCourseView.as_view(), name='enroll'),
+    path("course_detail/<int:pk>/feedback/", views.FeedbackCreateView.as_view(), name='feedback'),
 
 ]

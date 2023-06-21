@@ -63,24 +63,28 @@
         </div>
           <ul class="navbar-nav justify-content-end">
             {% if user.is_authenticated %}
-            <li class="nav-item dropdown account-dropdown">
-              <a class="nav-link dropdown-toggle" href=""  role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Account
-              </a>
-              <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">Profile page</a>
-                <a class="dropdown-item" href="#">Edit profile</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
-              </div>
-            </li>
+              <li class="nav-item dropdown account-dropdown">
+                <a class="nav-link dropdown-toggle" href=""  role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Account
+                </a>
+                <div class="dropdown-menu">
+                    {% if not user.userprofile %} 
+                      <a class="dropdown-item" href="{% url 'create_profile' %}">Create profile</a>
+                    {%else%} 
+                      <a class="dropdown-item" href="{% url 'profile_page' user.userprofile.pk %}">Profile page</a>
+                      <a class="dropdown-item" href="#">Edit profile page</a>
+                    {%endif%}
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                </div>
+              </li>
             {%else%} 
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'student_signup' %}">Register</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'login' %}">Login</a>
-            </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'student_signup' %}">Register</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'login' %}">Login</a>
+              </li>
             {%endif%}
           </ul>
         </div>
@@ -90,7 +94,7 @@
   {% if user.is_staff or user.is_admin %}
   <div id="mySidebar" class="sidebar">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-      <h2 style="position: relative; left: 40px;"><i class="fa fa-user"></i>
+      <h2><i class="fa fa-user"></i>
         Staff Menu</h2>
       <ul class="sidebar-menu" id="main">
         <li><a href="{% url 'create_announcement' %}">Post announcement</a></li>

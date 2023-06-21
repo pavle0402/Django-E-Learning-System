@@ -102,19 +102,19 @@
       <img src="{{course1.badge.url}}" alt="Course">
       <h3>{{course1.name}}</h3>
       <p>Take your JavaScript skills to the next level with our advanced course. Dive into advanced concepts, frameworks, and techniques to build robust web applications.</p>
-      <a href="#" class="btn">View Course</a>
+      <a href="{% url 'course_detail' course1.id %}" class="btn">View Course</a>
     </div>
     <div class="course-card">
       <img src="{{course2.badge.url}}" alt="Course 2">
       <h3>{{course2.name}}</h3>
       <p>Embark on a coding journey with our Python Introduction course. Gain a solid foundation in Python programming as you explore its versatility and apply it to real-world projects.</p>
-      <a href="#" class="btn">View Course</a>
+      <a href="{% url 'course_detail' course2.id %}" class="btn">View Course</a>
     </div>
     <div class="course-card">
       <img src="{{course3.badge.url}}" alt="Course 3">
       <h3>{{course3.name}}</h3>
       <p>Embark on a coding journey with our Python Introduction course. Gain a solid foundation in Python programming as you explore its versatility and apply it to real-world projects</p>
-      <a href="#" class="btn">View Course</a>
+      <a href="{% url 'course_detail' course3.id %}" class="btn">View Course</a>
     </div>
     <a href="{% url 'course_list' %}" class="show-all-btn">Show All Courses</a>
   </section>

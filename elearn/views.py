@@ -15,13 +15,14 @@ from django.contrib import auth
 from datetime import datetime, date
 from django.core.exceptions import ValidationError
 from django.db.models import Avg, Count, Sum
-from django.forms import inlineformset_factory
-from django.db import transaction
-from django.contrib.auth.hashers import make_password
+from django.http import HttpResponse
 from django.contrib.auth.forms import (AuthenticationForm, UserCreationForm,
                                        PasswordChangeForm)
-from .models import (User, Course, Announcement, UserProfile)
-from .forms import (StudentSignupForm, CreateProfileForm)
+from .models import (User, Course, Announcement, UserProfile, Feedback)
+from .forms import (StudentSignupForm, CreateProfileForm, FeedbackForm)
+from django.http import JsonResponse
+from django.contrib import messages
+
 
 
 class UserStatus(DetailView):
@@ -32,6 +33,13 @@ class UserStatus(DetailView):
 
 
 #general views
+def navbar_view(request):
+    userprofile = UserProfile.objects.all()
+    context = {
+        'userprofile': userprofile
+    }
+    return render(request, 'navbar.html', context)
+
 def home_page(request):
     course1 = Course.objects.filter(id=2).first()
     course2 = Course.objects.filter(id=1).first()
@@ -112,6 +120,25 @@ class CourseDetailView(DetailView):
     context_object_name = 'course'
 
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['feedbacks'] = Feedback.objects.filter(course=self.object)
+        return context
+    
+class EnrollCourseView(View):
+    def get(self, request, *args, **kwargs):
+        return reverse_lazy('course_detail', pk=self.kwargs['course_id'])
+    
+    def post(self ,request, *args, **kwargs):
+        course = get_object_or_404(Course, pk=self.kwargs['course_id'])
+        user_profile = UserProfile.objects.get(user=request.user)
+        user_profile.enrolled_courses.add(course)
+        return messages.success(request, "You have successfully bought this course.")
+    
+    def get_success_url(self):
+        return reverse_lazy('course_detail', kwargs={'pk':self.kwargs['pk']})
+    
+
 def InstructorsView(request):
     return render(request, 'instructors.html', {})
 
@@ -120,7 +147,7 @@ class AnnouncementView(ListView):
     model = Announcement
     template_name = "announcement.html"
     context_object_name = "announcements"
-    
+    ordering = ['-added_on']
 
 
 #staff and admin views
@@ -149,31 +176,26 @@ class ProfileCreateView(CreateView):
     model = UserProfile
     template_name = "create_profile.html"
     form_class = CreateProfileForm
-    success_url = reverse_lazy('profile_page')
+    success_url = reverse_lazy('home')    
+    # def get_success_url(self):
+    #     return reverse_lazy('profile_page', kwargs={'pk':self.kwargs['pk']})
 
-
-class EnrollCourse(View):
-    def post(self, request, course_id):
-        course = get_object_or_404(Course, pk=course_id)
-        user_profile = UserProfile.objects.get(user=self.request.user)
-        user_profile.courses.add(course)
-        return reverse_lazy('home')
-        #put profile_page for reverse_lazy when u make it
 
 class ProfileDetailView(DetailView):
     model = UserProfile 
     context_object_name = "userprofile"
     template_name = "user_profile.html"
 
+#feedback
+class FeedbackCreateView(CreateView):
+    model = Feedback
+    template_name = 'add_feedback.html'
+    form_class = FeedbackForm
+    ordering = ['-posted_on']
 
+    def form_valid(self, form):
+        form.instance.course_id = self.kwargs['pk']
+        return super().form_valid(form)
 
-# class AddFeedbackView(View):
-    
-#     def post(self,request, course_id):
-#         form = FeedbackForm(request.POST or None)
-#         if form.is_valid():
-#             course = Course.objects.filter(id=course_id)
-#             feedback = CourseFeedback(
-#                 course=course,
-#                 name=request.user
-#             )
+    def get_success_url(self):
+        return reverse_lazy('course_detail', kwargs={'pk':self.kwargs['pk']})

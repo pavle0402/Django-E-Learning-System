@@ -79,12 +79,11 @@
     }
     
     .popup .button {
-        position: relative;
-        text-align: center;
-    }
-    .popup .button1 {
+      display: flex;
+      margin-bottom: 10px;
 
     }
+
 
     
     .popup__title {
@@ -134,7 +133,7 @@
             {% csrf_token %}
             <button type="submit" class="button">Yes</button>
         </form> 
-        <a href="{% url 'announcements' %}" class="button">No</a>
+        <button type="submit" class="button cancel-button">No</button>
       </div>
     </div>
   </div>
