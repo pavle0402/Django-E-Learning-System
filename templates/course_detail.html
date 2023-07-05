@@ -18,18 +18,22 @@
       <img src="{{ course.badge.url }}" alt="badge">
     </div>
       <strong style="font-size: 30px;">{{course.price}}</strong><br>
-      <p class="course-description">{{course.description|linebreaksbr }}</p>
+      {% if average_rating %}
+        <span class="rating-value">⭐️⭐️⭐️⭐️⭐️ {{average_rating|floatformat:1}}</span><br><br>
+      {%endif%}
+        <p class="course-description">{{course.description|linebreaksbr }}</p>
       <p class="course-meta"><span>Instructor:</span>{{course.instructor}} <a href="{% url 'instructors' %}">view more</a> </p>
       <!-- create duration field for course model -->
       <p class="course-meta"><span>Duration:</span>30 hours</p>
       <div class="course-rating">
-        <span class="rating-stars">⭐️⭐️⭐️⭐️⭐️</span>
-        <span class="rating-value">4.9</span>
       </div>
+      <br>
+
       <form method="post" action="{% url 'enroll' course.pk %}">
         {% csrf_token %}
-        <button class="enroll-button">Enroll Now</button>
+        <button id="enrollButton" class="enroll-button">Enroll</button>
       </form>
+    
       <hr>
       <br><br><br>
 
@@ -37,19 +41,38 @@
         <h2>Feedbacks</h2>
         {% for feedback in feedbacks %}
             <div class="comment">
-                <div class="author">{{ feedback.author }}</div>
+                <div class="author">{{ feedback.author.first_name }} {{feedback.author.last_name}}</div>
+                <div class="author-picture"><img src="{{feedback.author.userprofile.profile_pic.url}}"></div>
                 <div class="timestamp">{{ feedback.posted_on }}</div>
-                <div class="content">{{ feedback.content }}</div>
+                <div class="content">{{ feedback.content|linebreaksbr }}</div>
+                <div class="rating">
+                  {% if feedback.ratings == 1 %}
+                  Rated: {{ feedback.ratings }} <i class="fa-solid fa-star"></i>
+                  {%endif%}
+                  {% if feedback.ratings == 2 %} 
+                  Rated: {{ feedback.ratings }} <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                  {%endif%}
+                  {% if feedback.ratings == 3 %} 
+                  Rated: {{ feedback.ratings }} <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                  {%endif%}
+                  {% if feedback.ratings == 4 %} 
+                  Rated: {{ feedback.ratings }} <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                  {%endif%}
+                  {% if feedback.ratings == 5 %} 
+                  Rated: {{ feedback.ratings }} <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                  {%endif%}
+
+                </div>
             </div>
         {% empty %}
             <p>No feedbacks yet.</p>
-            <a href="{% url 'feedback' course.pk %}">Break the ice...</a>
         {% endfor %}
-
+        this is average rating = {{feedback.course.get_average_rating}}
           {%if user.is_authenticated %}
               <a href="{% url 'feedback' course.pk %}">Add feedback...</a>
           {% endif %}
     </div>
   </div>
 </body>
+
 {%endblock%}

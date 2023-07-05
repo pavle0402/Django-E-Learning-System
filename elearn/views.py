@@ -11,17 +11,17 @@ from django.utils import timezone
 from django.http import JsonResponse
 from django.conf import settings
 import os
+from django.core.mail import send_mail, BadHeaderError
 from django.contrib import auth
 from datetime import datetime, date
 from django.core.exceptions import ValidationError
 from django.db.models import Avg, Count, Sum
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.forms import (AuthenticationForm, UserCreationForm,
                                        PasswordChangeForm)
 from .models import (User, Course, Announcement, UserProfile, Feedback)
-from .forms import (StudentSignupForm, CreateProfileForm, FeedbackForm)
+from .forms import (StudentSignupForm, CreateProfileForm, FeedbackForm, EditProfileForm, ContactForm)
 from django.http import JsonResponse
-from django.contrib import messages
 
 
 
@@ -54,6 +54,22 @@ def home_page(request):
 
 def about_page(request):
     return render(request,'about.html', {})
+
+def contact_page(request):
+    if request.method == "POST":
+        form = ContactForm(request.POST or None)
+        if form.is_valid():
+            topic = form.cleaned_data('topic')
+            email = form.cleaned_data('email')
+            question = form.cleaned_data('content')
+            try:
+                send_mail(topic, question, email,['pavles2002@gmail.com'])
+                messages.success(request, "You have successfully sent your inquiry.")
+            except BadHeaderError:
+                raise BadHeaderError("Invalid header found.")
+        else:
+            form = ContactForm()
+        return render(request, 'contact.html', {'form':form})
 
 def services_page(request):
     return render(request, 'services.html', {})
@@ -106,25 +122,33 @@ def logout_user(request):
     messages.success(request, "You have been logged out.")
     return redirect('home')
 
-
+# def course_payment(request):
+#     return render(request, 'payment.html', {})
 
 class CourseListView(ListView):
     model = Course
     queryset = Course.objects.all()
     template_name = "course_list.html"
-    context_object_name = "course"
+    # context_object_name = "course"
     
 class CourseDetailView(DetailView):     
     model = Course
-    template_name = 'course_detail.html'
     context_object_name = 'course'
-
+    template_name = 'course_detail.html'
+    ordering = ['feedbacks']
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        feedbacks = Feedback.objects.filter(course=self.object)
+        print('feedbacks', feedbacks)
+        #typically the key is field_name__avg, but here i assignet it to variable which i can put as key, not neccessary but interesting
+        average_rating = feedbacks.aggregate(Avg('ratings'))['ratings__avg']
+        print("average_ratings", average_rating)
         context['feedbacks'] = Feedback.objects.filter(course=self.object)
+        context['average_rating'] = average_rating
+
         return context
-    
+
 class EnrollCourseView(View):
     def get(self, request, *args, **kwargs):
         return reverse_lazy('course_detail', pk=self.kwargs['course_id'])
@@ -132,12 +156,19 @@ class EnrollCourseView(View):
     def post(self ,request, *args, **kwargs):
         course = get_object_or_404(Course, pk=self.kwargs['course_id'])
         user_profile = UserProfile.objects.get(user=request.user)
-        user_profile.enrolled_courses.add(course)
-        return messages.success(request, "You have successfully bought this course.")
-    
-    def get_success_url(self):
-        return reverse_lazy('course_detail', kwargs={'pk':self.kwargs['pk']})
-    
+        if user_profile:
+            if course not in user_profile.enrolled_courses.all():
+                user_profile.enrolled_courses.add(course)
+                messages.success(request,f"You have successfully enrolled for {course.name}. Good luck!")
+                return redirect('course_list')
+            else:
+                messages.warning(request,f"You are already enrolled in {course.name}.")
+                return redirect('course_list')
+        else:
+            messages.warning(request,"You must create account and profile first.")
+            return redirect('register')
+        
+
 
 def InstructorsView(request):
     return render(request, 'instructors.html', {})
@@ -170,6 +201,11 @@ class DeleteAnnouncementView(DeleteView):
     template_name = "delete_announcement.html"
     success_url = reverse_lazy('announcements')
 
+class ProfileListView(ListView):
+    model = UserProfile
+    template_name = "profiles_list.html"
+    context_object_name = "profile"
+
 #profile views
 
 class ProfileCreateView(CreateView):
@@ -186,12 +222,24 @@ class ProfileDetailView(DetailView):
     context_object_name = "userprofile"
     template_name = "user_profile.html"
 
+class ProfileEditView(UpdateView):
+    model = UserProfile
+    template_name = "edit_profile.html"
+    form_class = EditProfileForm
+
+    def get_success_url(self):
+        return reverse_lazy('profile_page', kwargs={'pk': self.kwargs['pk']})
+
 #feedback
 class FeedbackCreateView(CreateView):
     model = Feedback
-    template_name = 'add_feedback.html'
     form_class = FeedbackForm
     ordering = ['-posted_on']
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['pk'] = self.kwargs['pk']
+        return context
 
     def form_valid(self, form):
         form.instance.course_id = self.kwargs['pk']
@@ -199,3 +247,9 @@ class FeedbackCreateView(CreateView):
 
     def get_success_url(self):
         return reverse_lazy('course_detail', kwargs={'pk':self.kwargs['pk']})
+    
+    def get_template_names(self):
+        template_names = [
+            'add_feedback.html',
+        ]
+        return template_names

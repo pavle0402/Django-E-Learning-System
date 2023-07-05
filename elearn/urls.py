@@ -6,7 +6,7 @@ urlpatterns = [
     path('about/', views.about_page, name='about'),
     path('services/', views.services_page, name='services'),
     path('privacy_policy/', views.policy_page, name='policy'),
-    path('', views.contact_page, name='contact'),
+    path('contact_us/', views.contact_page, name='contact'),
     path('instructors/', views.InstructorsView, name='instructors'),
     path('student_signup/', views.SignupStudentView, name='student_signup'),
     path('logout/', views.logout_user, name='logout'),
@@ -21,5 +21,7 @@ urlpatterns = [
     path('profile/<int:pk>/', views.ProfileDetailView.as_view(), name='profile_page'),
     path('course_detail/<int:course_id>/enroll/', views.EnrollCourseView.as_view(), name='enroll'),
     path("course_detail/<int:pk>/feedback/", views.FeedbackCreateView.as_view(), name='feedback'),
+    path('profile_list/', views.ProfileListView.as_view(), name='profile_list'),
+    path('profile/<int:pk>/edit/', views.ProfileEditView.as_view(), name='edit_profile'),
 
 ]

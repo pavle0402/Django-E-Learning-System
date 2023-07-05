@@ -33,7 +33,6 @@
 
 .course-meta span {
   font-weight: bold;
-  margin-right: 5px;
 }
 
 .course-rating {
@@ -45,10 +44,14 @@
 .rating-stars {
   color: gold;
   margin-right: 5px;
+  font-size: 20px;
 }
 
 .rating-value {
+  margin-top: 5px;
+  margin-bottom: 20px;
   font-weight: bold;
+  font-size: 20px;
 }
 
 .enroll-button {
@@ -81,6 +84,7 @@
 /* comments styles */
 
 .comments-container {
+  max-width: 1000px;
   margin-top: 20px;
   padding: 20px;
   border: 1px solid #ccc;
@@ -95,9 +99,16 @@
 }
 
 .comment .author {
+  font-size: 16px;
   font-weight: bold;
   margin-bottom: 5px;
   font-weight: bold;
+}
+
+.comment img {
+  width: 70px;
+  height: 70px;
+  margin-left: auto;
 }
 
 .comment .timestamp {
@@ -107,5 +118,12 @@
 }
 
 .comment .content {
-  font-size: 14px;
+  font-size: 18px;
+  margin-left: 100px;
+  margin-right: 100px;
+}
+
+.comment .rating {
+  margin-top: 5px;
+  font-weight: bold;
 }

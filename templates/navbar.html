@@ -6,7 +6,6 @@
   <link rel="stylesheet" href="{% static 'ELS/css/navbar.css' %}">
   <link rel="stylesheet" href="{% static 'ELS/css/sidebar.css' %}">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="{% static 'ELS/js/navbar.js' %}"></script>
   <script src="{% static 'ELS/js/sidebar.js' %}"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
@@ -38,25 +37,25 @@
             </li>
             {% if user.is_authenticated %}
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'announcements' %}">Announcements</a>
+              <a class="nav-link" href="{% url 'announcements' %}"><i class="fa-solid fa-bell"></i> Announcements</a>
             </li>
             {%endif%}
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'instructors' %}">Instructors</a>
+              <a class="nav-link" href="{% url 'instructors' %}"><i class="fa-solid fa-chalkboard-user"></i> Instructors</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'course_list' %}">Courses</a>
+              <a class="nav-link" href="{% url 'course_list' %}"><i class="fa-solid fa-graduation-cap"></i> Courses</a>
             </li>
             <div class="navbar-nav justify-content-end">
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Info
+                <i class="fa-solid fa-circle-info"></i> Info
               </a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="{% url 'about' %}">About Us</a></li>
-                <li><a class="dropdown-item" href="{% url 'policy' %}">Privacy Policy</a></li>
-                <li><a class="dropdown-item" href="{% url 'services' %}">Services</a></li>
-                <li><a class="dropdown-item" href="#">Contact</a></li>
+                <li><a class="dropdown-item" href="{% url 'about' %}" target="_blank">About Us</a></li>
+                <li><a class="dropdown-item" href="{% url 'policy' %}" target="_blank">Privacy Policy</a></li>
+                <li><a class="dropdown-item" href="{% url 'services' %}" target="_blank">Services</a></li>
+                <li><a class="dropdown-item" href="{% url 'contact' %}" target="_blank">Contact</a></li>
               </ul>
             </li>
           </ul>
@@ -65,14 +64,14 @@
             {% if user.is_authenticated %}
               <li class="nav-item dropdown account-dropdown">
                 <a class="nav-link dropdown-toggle" href=""  role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Account
+                  <img src="{{user.userprofile.profile_pic.url}}" width="50px" height="50px"> {{user.first_name}} {{user.last_name}}
                 </a>
                 <div class="dropdown-menu">
                     {% if not user.userprofile %} 
                       <a class="dropdown-item" href="{% url 'create_profile' %}">Create profile</a>
                     {%else%} 
                       <a class="dropdown-item" href="{% url 'profile_page' user.userprofile.pk %}">Profile page</a>
-                      <a class="dropdown-item" href="#">Edit profile page</a>
+                      <a class="dropdown-item" href="{% url 'edit_profile' user.userprofile.pk %}">Edit profile page</a>
                     {%endif%}
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
@@ -99,11 +98,7 @@
       <ul class="sidebar-menu" id="main">
         <li><a href="{% url 'create_announcement' %}">Post announcement</a></li>
         <li><a href="{% url 'announcements' %}">Edit/delete announcement</a></li>
-        <li><a href="#">Register student</a></li>
-        <li><a href="#">Register teacher</a></li>
-        <li><a href="#">Item 5</a></li>
-        <li><a href="#">Item 6</a></li>
-        <li><a href="#">Item 7</a></li>
+        <li><a href="{% url 'profile_list' %}">List of users</a></li>
       </ul>
       <footer class="sidebar-footer">
         &copy; 2023 Linden. All rights reserved.

@@ -8,13 +8,13 @@
 <html>
 <head>
     <style>
-        body {
+        body1 {
             font-family: Arial, sans-serif;
             background-color: #f1f1f1;
         }
 
         .container {
-            max-width: 500px;
+            max-width: 600px;
             margin: 0 auto;
             padding: 20px;
             background-color: #fff;
@@ -31,21 +31,41 @@
         .form-group {
             margin-bottom: 20px;
         }
+        
+        #id_content {
+        display: block;
+        width: 100%;
+        border: none;
+        padding: 10px;
+        font-size: 18px;
+        line-height: 1.2;
+        background-color: #f7f7f7;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+        }
+
+        #id_content:focus {
+        outline: none;
+        background-color: #fff;
+        box-shadow: 0 0 0 2px #007bff;
+        }
+
+        textarea:focus::-webkit-scrollbar {
+        width: 6px;
+        }
+
+        textarea:focus::-webkit-scrollbar-thumb {
+        background-color: #007bff;
+        }
 
         label {
-            display: block;
+            display:flex;
             font-weight: bold;
             margin-bottom: 5px;
         }
 
-        textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
         button[type="submit"] {
+            margin-left: 42%;
             padding: 10px 20px;
             background-color: #007bff;
             color: #fff;
@@ -55,20 +75,21 @@
         }
 
         button[type="submit"]:hover {
-            background-color: #0069d9;
+            background-color: #0069d9;    
         }
+
+
     </style>
 </head>
 {%if user.is_authenticated %}
-<body>
+<body1>
     <div class="container">
         <h1 class="title">Post Feedback</h1>
-        <form method="POST">
+        <form method="POST" action="{% url 'feedback' pk=pk %}">
+            <div class="form-group">
             {% csrf_token %}
-            <div class="form-group">
                 {{form.as_p}}
-            </div>
-            <div class="form-group">
+                <br>
                 <button type="submit">Submit</button>
             </div>
         </form>
@@ -78,7 +99,7 @@
         document.getElementById("author").value 
         = name 
     </script>
-</body>
+</body1>
 {%else%}
 <h1>Get outta here. Create account first mate.</h1>
 {%endif%}

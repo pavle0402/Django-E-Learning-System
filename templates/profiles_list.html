@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+
+{%block title%} 
+<title>List of all users</title>
+{% endblock  %}
+
+{% block content %} 
+{% if user.is_authenticated %}
+    {% if user.is_staff or user.is_admin %} 
+        <!DOCTYPE html>
+        <html>
+        <head>
+        <style>
+            table {
+                margin-left: 20px;
+            width: 100%;
+            border-collapse: collapse;
+            }
+
+            th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+            }
+
+            th {
+            background-color: #f2f2f2;
+            }
+        </style>
+        </head>
+        <body>
+        <h1>User Profiles</h1>
+        <table>
+            <tr>
+            <th>Name</th>
+            <th>Birthdate</th>
+            <th>Date Joined</th>
+            </tr>
+            {% for profile in object_list %}
+            <tr>
+                <td><a href="{% url 'profile_page' profile.pk %}">{{ profile.user.get_full_name }}</a></td>
+                <td>{{ profile.birth_date }}</td>
+                <td>{{ profile.user.date_joined }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        </body>
+        </html>
+    {% else %}
+    <h2 style="text-align: center;">You are not allowed here and you know it. Go back.</h2>
+    {%endif%}
+{% else %}
+<h2 style="text-align: center;">You are not allowed here and you know it. Go back.</h2> 
+{%endif%}
+{%endblock%} 

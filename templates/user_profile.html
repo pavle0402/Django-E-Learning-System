@@ -2,36 +2,54 @@
 {% load static %}
 
 {%block title%} 
-<title>{{userprofile.user.first_name}}'s profile page</title>
+<title>{{userprofile.user.first_name}} {{userprofile.user.last_name}}'s profile page</title>
 {%endblock%} 
 
 
 {%block content%} 
-<!DOCTYPE html>
-<html>
 <head>
-    <title>User Profile</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'ELS/css/profile.css' %}">
+    <link rel="stylesheet" href="{% static 'ELS/css/profile.css' %}">
+    <script src="https://kit.fontawesome.com/f076b59054.js" crossorigin="anonymous"></script>
 </head>
-<body>
-    <div class="card">
-        <div class="profile-container">
-            <img src="{{userprofile.profile_pic.url}}" alt="Profile Picture" class="profile-picture">
-            <div class="profile-details">
-                <div class="name">{{userprofile.user.first_name}} {{userprofile.user.last_name}}</div>
-                <div class="bio">{{userprofile.bio}}</div>
-                <div class="courses">
-                    <ul>
-                        <l1>{{userprofile.enrolled_courses}}</l1>
-                    </ul>
-                </div>
-                <div class="birthdate">{{userprofile.birth_date}}</div>
-            </div>
-        </div>
+<div class="profile-card">
+    <div class="profile-picture">
+      <img src="{{ userprofile.profile_pic.url }}" alt="Profile Picture">
     </div>
-</body>
-</html>
-
+    <div class="profile-details">
+      <h2>{{ userprofile.get_full_name }}</h2>
+      <div class="social-media-links">
+        {% if userprofile.instagram %}
+          <a href="{{ user.userprofile.instagram }}" target="_blank"><i class="fab fa-instagram"></i></a>
+        {% endif %}
+        {% if userprofile.facebook %}
+          <a href="{{ userprofile.facebook }}" target="_blank"><i class="fab fa-facebook"></i></a>
+        {% endif %}
+        {% if userprofile.twitter %}
+          <a href="{{ userprofile.twitter }}" target="_blank"><i class="fab fa-twitter"></i></a>
+        {% endif %}
+        {% if userprofile.linkedin %}
+          <a href="{{ userprofile.linkedin }}" target="_blank"><i class="fab fa-linkedin"></i></a>
+        {% endif %}
+      </div>
+      <p><strong>Birthdate:</strong> {{ userprofile.birth_date}}</p>
+      <p class="bio"><strong>About me:<br></strong> {{ userprofile.bio }}</p>
+      <h3>Enrolled Courses</h3>
+      <ul class="enrolled-courses">
+        {% for course in userprofile.enrolled_courses.all %}
+          <li>{{ course.get_html_badge }}</li>
+        {% empty %}
+          <li>No enrolled courses yet.</li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="profile-actions">
+      <a href="{% url 'home' %}" class="btn">Homepage</a>
+      {% if request.user == userprofile.user %}
+      <a href="{% url 'logout' %}" class="btn">Logout</a>
+      {%endif%}
+    </div>
+  </div>
+  
 
 
 {% endblock %}

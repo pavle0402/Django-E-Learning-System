@@ -2,7 +2,8 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from ckeditor.fields import RichTextField
 from django.utils.html import escape, mark_safe
-
+from django.core.validators import MaxValueValidator, MinValueValidator
+from django.db.models import Avg, Sum
 
 
 
@@ -44,7 +45,7 @@ class Announcement(models.Model):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
-    enrolled_courses = models.ManyToManyField(Course, null=True)
+    enrolled_courses = models.ManyToManyField(Course)
     profile_pic = models.ImageField(upload_to="images")
     bio = models.TextField()
     instagram = models.URLField(blank=True, null=True)
@@ -55,14 +56,23 @@ class UserProfile(models.Model):
 
 
     def __str__(self):
-        return f"{str(self.user)}"
+        return f"{str(self.user.first_name)}'s profile"
+    
+    def get_full_name(self):
+        return f"{self.user.first_name} {self.user.last_name}"
 
 class Feedback(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True, related_name='comment')
     author = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     content = models.TextField()
     posted_on = models.DateTimeField(auto_now_add=True)
+    ratings = models.PositiveIntegerField(default=None,
+        validators= [
+            MinValueValidator(1),
+            MaxValueValidator(5)
+        ]
+    )
 
 
     def __str__(self):
-        return f"{self.author} - {self.course}"
+        return f"{self.author} - {self.course.name}"

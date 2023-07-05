@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<head>
+        <style>
+    .stars {
+    display: inline-block;
+    }
+
+    .star {
+    padding: 0;
+    margin: 0;
+    font-size: 24px;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    }
+    .star:before {
+    content: '\2605';
+    position: absolute;
+    left: 0;
+    color: #ccc;
+    }
+    .star label {
+    padding: 0;
+    margin: 0;
+    margin-right: 10px;
+    position: relative;
+    float: right;
+    color: #ccc;
+    }
+    .star input {
+    opacity: 0;
+    display: none;
+    }
+    .star input:checked ~ label:before {
+    color: #f2b01e;
+    }
+    .star:hover ~ .star:before {
+    color: #ccc;
+    }
+    .star:hover:before,
+    .star:hover ~ .star:before {
+    color: #f2b01e;
+    }
+
+    </style>
+</head>
+<div class="stars">
+    <form action="">
+      <input class="star star-5" id="star-5" type="radio" name="star"/>
+      <label class="star star-5" for="star-5"></label>
+      <input class="star star-4" id="star-4" type="radio" name="star"/>
+      <label class="star star-4" for="star-4"></label>
+      <input class="star star-3" id="star-3" type="radio" name="star"/>
+      <label class="star star-3" for="star-3"></label>
+      <input class="star star-2" id="star-2" type="radio" name="star"/>
+      <label class="star star-2" for="star-2"></label>
+      <input class="star star-1" id="star-1" type="radio" name="star"/>
+      <label class="star star-1" for="star-1"></label>
+    </form>
+  </div>
+  
+<script>
+    const stars = document.querySelectorAll('.star');
+
+    stars.forEach(function(star, index) {
+    star.addEventListener('click', function() {
+        const rating = index + 1;
+        alert(`You rated this ${rating} stars`);
+    });
+    });
+</script>

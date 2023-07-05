@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{%load static%}
+
+{%block title%}
+<title>Edit profile page</title>
+{%endblock%} 
+
+
+
+{%block content%} 
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="{% static 'ELS/css/profile_creation.css' %}">
+</head>
+<body>
+  {% if request.user == userprofile.user %} 
+  <div class="profile-container">
+    <h1>Edit Your Profile</h1>
+    <form action="{% url 'edit_profile' user.userprofile.pk %}" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+        {{form.as_p}}
+        <button type="submit" class="btn btn-primary">Save changes</button>
+</body>
+</html>
+  {%else%}
+  <h2 style="text-align: center; margin-top: 150px;">That is not your profile man. What are you doing here?<br>
+    <a href="{% url 'home' %}"><button class="btn btn-primary">Home page</button></a></h2>
+  {%endif%}
+{%endblock%}
