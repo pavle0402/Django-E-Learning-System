@@ -42,6 +42,7 @@
                 <td><a href="{% url 'profile_page' profile.pk %}">{{ profile.user.get_full_name }}</a></td>
                 <td>{{ profile.birth_date }}</td>
                 <td>{{ profile.user.date_joined }}</td>
+                <td><a href="{% url 'delete_profile' profile.pk %}">Delete</a></td>
             </tr>
             {% endfor %}
         </table>

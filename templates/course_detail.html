@@ -67,7 +67,7 @@
         {% empty %}
             <p>No feedbacks yet.</p>
         {% endfor %}
-        this is average rating = {{feedback.course.get_average_rating}}
+        this is average rating = {{average_rating}}
           {%if user.is_authenticated %}
               <a href="{% url 'feedback' course.pk %}">Add feedback...</a>
           {% endif %}

@@ -37,7 +37,7 @@ class Announcement(models.Model):
     added_on = models.DateTimeField(auto_now_add=True)
     text = RichTextField()
     file = models.FileField(upload_to="files", blank=True)
-
+    expiry_date = models.DateTimeField(blank=False, null=True)
 
     def __str__(self):
         return f"{self.title} - {self.added_on}"

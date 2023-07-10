@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+<title>Delete profile #{{announcement.id}}</title>
+{% endblock %}
+
+
+{% block content %}
+{% if user.is_authenticated %}
+    {% if user.is_staff or user.is_admin%}
+        <!DOCTYPE html>
+        <html>
+        <head>
+        <meta charset="UTF-8">
+        <title>Delete Profile</title>
+
+        <!-- styling -->
+        <style>
+            body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            }
+            
+
+            
+            .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            }
+            
+            .container button {
+                position: relative;
+                left: 216px;
+                width: 60px;
+            }
+
+            h1 {
+            color: #333;
+            font-size: 28px;
+            margin-top: 0;
+            }
+            
+            p {
+            color: #555;
+            font-size: 18px;
+            }
+
+
+            .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+            }
+            
+            .button:hover {
+            background-color: #0056b3;
+            }
+            
+            /* Popup Styles */
+            .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            border-radius: 4px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            display: none;
+            }
+            .popup form {
+                padding: 0px;
+                margin: 0px;
+            }
+            
+            .popup .button {
+            display: flex;
+            margin-bottom: 10px;
+
+            }
+
+
+            
+            .popup__title {
+            color: #333;
+            font-size: 24px;
+            margin-top: 0;
+            }
+            
+            .popup__text {
+            color: #555;
+            font-size: 18px;
+            margin-bottom: 20px;
+            text-align: center;
+            }
+
+
+        </style>
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            $(document).ready(function() {
+            $('.delete-button').on('click', function() {
+                $('.popup').show();
+            });
+            
+            $('.cancel-button').on('click', function() {
+                $('.popup').hide();
+            });
+            });
+        </script>
+        </head>
+        <body>
+        <div class="container">
+            <h1>Delete this user's profile page?</h1>
+            
+            <p>Are you sure you want to delete this profile?</p>
+            
+            <a href="#" class="button delete-button">Delete</a>
+            <a href="{% url 'profile_list' %}"  class="button cancel-button">Cancel</a>
+            
+            <div class="popup">
+            <h2 class="popup__title">Confirm Deletion</h2>
+            
+            <p class="popup__text">Deleting this profile page cannot be undone. Are you sure?</p>
+            
+                <form method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="button">Yes</button>
+                </form> 
+                <button type="submit" class="button cancel-button">No</button>
+            </div>
+            </div>
+        </div>
+        </body>
+        </html>
+{%endif%}
+    {%else%}
+        <h1>This page is for staff only.</h1>
+    {%endif%}
+        {%endblock%}

@@ -23,5 +23,7 @@ urlpatterns = [
     path("course_detail/<int:pk>/feedback/", views.FeedbackCreateView.as_view(), name='feedback'),
     path('profile_list/', views.ProfileListView.as_view(), name='profile_list'),
     path('profile/<int:pk>/edit/', views.ProfileEditView.as_view(), name='edit_profile'),
+    path('profile/<int:pk>/delete/', views.DeleteProfilView.as_view(), name='delete_profile'),
+
 
 ]

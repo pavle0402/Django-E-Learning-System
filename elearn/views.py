@@ -21,7 +21,7 @@ from django.contrib.auth.forms import (AuthenticationForm, UserCreationForm,
                                        PasswordChangeForm)
 from .models import (User, Course, Announcement, UserProfile, Feedback)
 from .forms import (StudentSignupForm, CreateProfileForm, FeedbackForm, EditProfileForm, ContactForm)
-from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
 
 
 
@@ -80,6 +80,10 @@ def policy_page(request):
 def contact_page(request):
     return render(request,'contact.html', {})
 
+def InstructorsView(request):
+    return render(request, 'instructors.html', {})
+
+
 #account creating and logging in
 def SignupStudentView(request):
     if request.method == "POST":
@@ -116,7 +120,7 @@ def login_user(request):
         return render(request, 'login.html', {})
     
 
-
+@login_required
 def logout_user(request):
     logout(request)
     messages.success(request, "You have been logged out.")
@@ -141,7 +145,6 @@ class CourseDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         feedbacks = Feedback.objects.filter(course=self.object)
         print('feedbacks', feedbacks)
-        #typically the key is field_name__avg, but here i assignet it to variable which i can put as key, not neccessary but interesting
         average_rating = feedbacks.aggregate(Avg('ratings'))['ratings__avg']
         print("average_ratings", average_rating)
         context['feedbacks'] = Feedback.objects.filter(course=self.object)
@@ -168,10 +171,6 @@ class EnrollCourseView(View):
             messages.warning(request,"You must create account and profile first.")
             return redirect('register')
         
-
-
-def InstructorsView(request):
-    return render(request, 'instructors.html', {})
 
 
 class AnnouncementView(ListView):
@@ -206,8 +205,8 @@ class ProfileListView(ListView):
     template_name = "profiles_list.html"
     context_object_name = "profile"
 
-#profile views
 
+#profile views
 class ProfileCreateView(CreateView):
     model = UserProfile
     template_name = "create_profile.html"
@@ -215,6 +214,12 @@ class ProfileCreateView(CreateView):
     success_url = reverse_lazy('home')    
     # def get_success_url(self):
     #     return reverse_lazy('profile_page', kwargs={'pk':self.kwargs['pk']})
+
+# for staff only
+class DeleteProfilView(DeleteView):
+    model = UserProfile
+    template_name = "delete_profile.html"
+    success_url = reverse_lazy("profile_list")
 
 
 class ProfileDetailView(DetailView):
@@ -229,6 +234,8 @@ class ProfileEditView(UpdateView):
 
     def get_success_url(self):
         return reverse_lazy('profile_page', kwargs={'pk': self.kwargs['pk']})
+    
+
 
 #feedback
 class FeedbackCreateView(CreateView):

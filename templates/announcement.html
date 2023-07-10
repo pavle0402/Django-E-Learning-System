@@ -16,12 +16,6 @@
         <p class="announcement-date">{{ announcement.added_on|date:"F j, Y" }}</p>
         <p class="announcement-content">{{ announcement.text|safe|linebreaksbr }}</p>
         <a href="{{ announcement.file }}" target="_blank">{{announcement.file}}</a>
-        <!-- <p class="announcement-expiry {% if announcement.is_expired %}expired{% endif %}"> -->
-          <!-- {% if announcement.is_expired %} -->
-            <!-- Expired -->
-          <!-- {% else %} -->
-            <!-- Expires on {{ announcement.expiry_date|date:"F j, Y" }} -->
-          <!-- {% endif %} -->
         </p>
       </div>
         {% if user.is_staff or user.is_admin%} 
