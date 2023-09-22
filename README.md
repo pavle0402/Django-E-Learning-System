@@ -128,10 +128,15 @@ Application should now be running on: http://localhost:8000.
 <h3>Screenshots:</h3> 
 
 Admin pov home page:
+
 <img src="screenshots/admin pov/adminhome.png" width=450 height=350>
+
 List of courses:
+
 <img src="screenshots/Screenshot 2023-09-22 121720.png" width=450 height=350>
-Course detail example(there is also enroll and feedback section on the same page, as well as reviews of all the users that provided feedback)
+
+Course detail example(there is also enroll and feedback section on the same page, as well as reviews of all the users that provided feedback):
+
 <img src="screenshots/Screenshot 2023-09-22 121732.png" width=450 height=350>
 
  As there are many screenshots for this project, i won't attach them here. You can check all the other pictures in "screenshots/" folder inside this repository.
@@ -167,13 +172,17 @@ Submit a pull request with a clear explanation of your changes.
 
 <h3>Creating process:</h3> 
 <p1 style="text-align:center;">
+	
 **Project Overview**
+
 Welcome to the E-Learning System App, a project born out of a desire to create an original and innovative e-learning platform. Unlike following conventional tutorials, this project was developed from scratch, showcasing my commitment to authentic and creative solutions.
 
 **Challenges and Growth**
+
 While developing this project, I encountered various challenges. One notable challenge was implementing a Celery Beat schedule for managing announcements, which didn't work as expected. However, as a developer committed to continuous growth, I chose not to address this issue at this stage.
 
 **Project Philosophy**
+
 This project evolved into a platform resembling popular e-learning platforms like Coursera or Udemy. The journey began with a vision to create something unique and not just replicate existing tutorials. My goal was to demonstrate originality and my evolving skills as a developer.
 
 By sharing this project, I aim to showcase my ability to take an idea from concept to realization, overcome challenges, and think outside the box in creating functional and innovative solutions.
